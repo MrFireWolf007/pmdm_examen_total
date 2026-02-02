@@ -13,6 +13,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Proyecto base PMDM'),
+        backgroundColor: Colors.blue,
       ),
       // El Drawer siempre va en el Scaffold y para que tenga el icono de menu existir un AppBar
       drawer: Drawer(
@@ -24,13 +25,27 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.blue,
               ),
               child: Text(
-                'Menú principal con un Drawer',
+                'Drawer',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 24,
                 ),
-              )
-            )
+              ),
+            ),
+            // Ahora vamos a añadirle opciones al Drawer para poder navegar
+            // para ello usamos ListTile
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+            ListTile(
+              leading: Icon(Icons.image),
+              title: Text('Multimedia'),
+            ),
+            ListTile(
+              leading: Icon(Icons.login),
+              title: Text('Login'),
+            ),
           ],
         )
       ),
