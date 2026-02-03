@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Navegacion_Navigator/navigator_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -7,7 +9,35 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+  // 1-NavigationBar: Creamos una variable para la opcion seleccionada
+  int _selectedIndex = 0;
+
 class _HomePageState extends State<HomePage> {
+  // 2-NavigationBar: Ahora creamos una lista de paginas para navegar
+  // *Actualizamos ahora el contenido para usar Navigator*
+  late final List<Widget> _pages = [
+    // Página Home
+    Center(
+      child: ElevatedButton(
+        onPressed: () {
+          // Navigator.push añade una nueva pantalla a la pila
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const NavigatorPage(),
+            ),
+          );
+        },
+        child: const Text('Ir a segunda pantalla'),
+      ),
+    ),
+
+    // Página Multimedia (de momento simple)
+    const Center(child: Text('Multimedia')),
+
+    // Página Perfil
+    const Center(child: Text('Perfil')),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Proyecto base PMDM'),
         backgroundColor: Colors.blue,
       ),
-      // El Drawer siempre va en el Scaffold y para que tenga el icono de menu existir un AppBar
+      // 1-Dreawer va en el Scaffold y para que tenga el icono de menu existir un AppBar
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -49,12 +79,33 @@ class _HomePageState extends State<HomePage> {
           ],
         )
       ),
-      body: const Center(
-        child: Text(
-          'Todo listo en el Home🚀',
-          style: TextStyle(fontSize: 18),
-        ),
+
+      // 3-NavigationBar
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (index){
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        destinations: const[
+          NavigationDestination(
+            icon : Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon : Icon(Icons.image),
+            label: 'Multimedia',
+          ),
+          NavigationDestination(
+            icon : Icon(Icons.person),
+            label: 'Perfil',
+          ),
+        ],
       ),
+
+      // 4-NavigationBar: cambiamos el body por la página seleccionada
+      body: _pages[_selectedIndex]
     );
   }
 }
