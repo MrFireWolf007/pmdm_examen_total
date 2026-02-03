@@ -2,6 +2,7 @@
 // Primero creamos la pagina y despues la importamos *mirar asteriscos*
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NavigatorPage extends StatelessWidget {
   const NavigatorPage({super.key});
@@ -17,8 +18,10 @@ class NavigatorPage extends StatelessWidget {
         child: ElevatedButton(
           // Al pulsar, volvemos a la pantalla anterior
           onPressed: () {
-            // Navigator.pop elimina esta pantalla de la pila
-            Navigator.pop(context);
+            // Usamos GoRouter para volver a la ruta 'home' en vez de manipular
+            // directamente el Navigator (evita dejar la pila vacía cuando
+            // se navegó con context.goNamed(...)).
+            context.goNamed('home');
           },
           child: const Text('Volver'),
         ),

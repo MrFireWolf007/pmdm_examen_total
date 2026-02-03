@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../Navegacion_Navigator/navigator_page.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,14 +22,16 @@ class _HomePageState extends State<HomePage> {
       child: ElevatedButton(
         onPressed: () {
           // Navigator.push añade una nueva pantalla a la pila
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const NavigatorPage(),
-            ),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => const NavigatorPage(),
+          //   ),
+          // );
+          // Navegacion con nombre usando GoRouter
+          context.goNamed ('navigator');
         },
-        child: const Text('Ir a segunda pantalla'),
+        child: const Text('Ir a pantalla Navigator'),
       ),
     ),
 
