@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:pmdm_examen_total/pages/Navegacion_Navigator_Go_router/navigator_page.dart';
+import '../deep_linking/deep_linking_page.dart';
 import '../home/home_page.dart';
+import 'navigator_page.dart';
 
 
 /// GoRouter centraliza TODA la navegación de la app
@@ -19,6 +20,19 @@ final GoRouter appRouter = GoRouter(
       path: '/navigator',
       name: 'navigator',
       builder: (context, state) => const NavigatorPage(),
+    ),
+
+    // Ruta para usar Deeplinks con parametros en el go_router
+
+    GoRoute(
+      path: '/item/:id',
+      name: 'item',
+      builder: (context, state){
+        // Extraemos el parámetro 'id' de la URL
+        final id = state.pathParameters['id']!;
+        // Pasamos el id a la página DeepLinkingPage
+        return DeepLinkingPage(id: id);
+      },
     ),
   ],
 );

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -10,8 +8,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-  // 1-NavigationBar: Creamos una variable para la opcion seleccionada
-  int _selectedIndex = 0;
+// 1-NavigationBar: Creamos una variable para la opcion seleccionada
+int _selectedIndex = 0;
 
 class _HomePageState extends State<HomePage> {
   // 2-NavigationBar: Ahora creamos una lista de paginas para navegar
@@ -19,19 +17,25 @@ class _HomePageState extends State<HomePage> {
   late final List<Widget> _pages = [
     // Página Home
     Center(
-      child: ElevatedButton(
-        onPressed: () {
-          // Navigator.push añade una nueva pantalla a la pila
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => const NavigatorPage(),
-          //   ),
-          // );
-          // Navegacion con nombre usando GoRouter
-          context.goNamed ('navigator');
-        },
-        child: const Text('Ir a pantalla Navigator'),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              // Navegacion con nombre usando GoRouter
+              context.goNamed('navigator');
+            },
+            child: const Text('Ir a pantalla Navigator'),
+          ),
+          const SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: () {
+              // Navegar a la página de deep linking (item) pasando un id
+              context.go('/item/1');
+            },
+            child: const Text('Ir a deep_linking (item 1)'),
+          ),
+        ],
       ),
     ),
 
@@ -41,6 +45,7 @@ class _HomePageState extends State<HomePage> {
     // Página Perfil
     const Center(child: Text('Perfil')),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,63 +57,40 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const[
+          children: const [
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
+              decoration: BoxDecoration(color: Colors.blue),
               child: Text(
                 'Drawer',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24,
-                ),
+                style: TextStyle(color: Colors.black, fontSize: 24),
               ),
             ),
             // Ahora vamos a añadirle opciones al Drawer para poder navegar
             // para ello usamos ListTile
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-            ),
-            ListTile(
-              leading: Icon(Icons.image),
-              title: Text('Multimedia'),
-            ),
-            ListTile(
-              leading: Icon(Icons.login),
-              title: Text('Login'),
-            ),
+            ListTile(leading: Icon(Icons.home), title: Text('Home')),
+            ListTile(leading: Icon(Icons.image), title: Text('Multimedia')),
+            ListTile(leading: Icon(Icons.login), title: Text('Login')),
           ],
-        )
+        ),
       ),
 
       // 3-NavigationBar
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
-        onDestinationSelected: (index){
+        onDestinationSelected: (index) {
           setState(() {
             _selectedIndex = index;
           });
         },
-        destinations: const[
-          NavigationDestination(
-            icon : Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon : Icon(Icons.image),
-            label: 'Multimedia',
-          ),
-          NavigationDestination(
-            icon : Icon(Icons.person),
-            label: 'Perfil',
-          ),
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.image), label: 'Multimedia'),
+          NavigationDestination(icon: Icon(Icons.person), label: 'Perfil'),
         ],
       ),
 
       // 4-NavigationBar: cambiamos el body por la página seleccionada
-      body: _pages[_selectedIndex]
+      body: _pages[_selectedIndex],
     );
   }
 }

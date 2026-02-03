@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pmdm_examen_total/pages/Navegacion_Navigator_Go_router/go_router.dart';
-
+import 'package:pmdm_examen_total/pages/Navegacion/go_router.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
